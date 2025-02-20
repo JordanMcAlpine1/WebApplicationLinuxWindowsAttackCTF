@@ -1,8 +1,8 @@
-# Web Application, Linux, Windows Attack CTF
+# Web App, Linux, Windows Pen Test
 
 ## Description  
 
-This project focuses on improving the security, performance, and manageability of a Linux system by implementing various system hardening measures and best practices. The tasks are designed to address potential vulnerabilities, streamline system operations, and ensure compliance with security standards.
+This project focuses on conducting a Capture The Flag (CTF) penetration test for the fictional company Rekall, targeting their web application, Linux servers, and Windows servers. The objective is to exploit vulnerabilities across all three platforms to expose current security weaknesses and provide effective mitigations. This approach aims to enhance the overall security posture of Rekall while ensuring compliance with established security standards.
 
 ## Operating System  
 
