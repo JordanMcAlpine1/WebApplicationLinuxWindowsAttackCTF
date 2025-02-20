@@ -36,8 +36,8 @@ During the assessment of a web application, multiple vulnerabilities were identi
 
 ### Reflected Cross-Site Scripting (XSS)
 
-- **Welcome.php:** Found an XSS vulnerability that can be triggered with the payload `<script>alert("hi")</script>`.
-- **Memory-Planner.php (first field):** Identified an advanced XSS reflection where input validation removes "script," requiring a modified payload such as `<SCRIPscriptT>alert("hi")</SCRIPscripTt>`.
+- **Welcome.php:** Found an XSS vulnerability that can be triggered with the payload `<script>alert("test")</script>`.
+- **Memory-Planner.php (first field):** Identified an advanced XSS reflection where input validation removes "script," requiring a modified payload such as `<SCRIPscriptT>alert("test")</SCRIPscripTt>`.
 
 ### Stored Cross-Site Scripting (XSS)
 
