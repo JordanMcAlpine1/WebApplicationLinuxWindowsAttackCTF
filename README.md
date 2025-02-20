@@ -30,7 +30,7 @@ This project focuses on improving the security, performance, and manageability o
 
 ---
 
-## Web Application Attack
+## Web Application Attack (Rekall)
 
 During the assessment of a web application, multiple vulnerabilities were identified across different locations, revealing various security weaknesses. Below are the details of these findings:
 
@@ -94,9 +94,7 @@ During the assessment of a web application, multiple vulnerabilities were identi
   *(Modify `?page=old_disclaimers/disclaimer_1.txt` to access previous versions.)*
 
 
-![Screenshot 2025-02-12 at 3 17 55 PM](https://github.com/user-attachments/assets/d45623e3-ba1b-4ea7-a127-6f97e9e146f1)
-![Screenshot 2025-02-12 at 3 18 29 PM](https://github.com/user-attachments/assets/4d0514b7-c6d6-4f20-bc89-b5aed7b199ef)
-![Screenshot 2025-02-12 at 3 18 55 PM](https://github.com/user-attachments/assets/1bab31cd-6573-44b2-9a97-ed98393f8860)
+---
 
 
 
