@@ -34,81 +34,65 @@ This project focuses on improving the security, performance, and manageability o
 
 During the assessment of a web application, multiple vulnerabilities were identified across different locations, revealing various security weaknesses. Below are the details of these findings:
 
-## Reflected Cross-Site Scripting (XSS)
+### Reflected Cross-Site Scripting (XSS)
 
-- **Welcome.php**: Found an XSS vulnerability that can be triggered with the payload:
-  ```html
-  <script>alert("hi")</script>
-  ```
+- **Welcome.php:** Found an XSS vulnerability that can be triggered with the payload `<script>alert("hi")</script>`.
+- **Memory-Planner.php (first field):** Identified an advanced XSS reflection where input validation removes "script," requiring a modified payload such as `<SCRIPscriptT>alert("hi")</SCRIPscripTt>`.
 
-- **Memory-Planner.php (first field)**: Identified an advanced XSS reflection where input validation removes "script," requiring a modified payload such as:
-  ```html
-  <SCRIPscriptT>alert("hi")</SCRIPscripTt>
-  ```
+### Stored Cross-Site Scripting (XSS)
 
-## Stored Cross-Site Scripting (XSS)
+- **comments.php:** Found a stored XSS vulnerability allowing persistent execution of JavaScript payloads.
 
-- **comments.php**: Found a stored XSS vulnerability allowing persistent execution of JavaScript payloads.
+### Sensitive Data Exposure
 
-## Sensitive Data Exposure
+- **About-Rekall.php:** Exposed sensitive data within HTTP response headers, which can be accessed using Burp Suite or a cURL request:
+  
+  *(Use `curl -v [target URL]` to inspect headers.)*
 
-- **About-Rekall.php**: Exposed sensitive data within HTTP response headers, which can be accessed using Burp Suite or a cURL request:
-  ```sh
-  curl -v http://192.168.14.35/About-Rekall.php
-  ```
-- **Login.php (second field)**: User credentials were embedded within the HTML source and could be revealed by inspecting the page.
-- **robots.txt**: Contained sensitive data exposure by listing directories accessible without authentication.
+- **Login.php (second field):** User credentials were embedded within the HTML source and could be revealed by inspecting the page.
+- **robots.txt:** Contained sensitive data exposure by listing directories accessible without authentication.
 
-## Local File Inclusion (LFI)
+### Local File Inclusion (LFI)
 
-- **Memory-Planner.php (second field)**: LFI vulnerability allows arbitrary file uploads.
-- **Memory-Planner.php (third field)**: An advanced LFI vulnerability was found where the input validation checks for `.jpg`. Bypassing it requires naming a script:
-  ```sh
-  script.jpg.php
-  ```
+- **Memory-Planner.php (second field):** LFI vulnerability allows arbitrary file uploads.
+- **Memory-Planner.php (third field):** An advanced LFI vulnerability was found where the input validation checks for `.jpg`. Bypassing it requires naming a script `script.jpg.php`.
 
-## SQL Injection
+### SQL Injection
 
-- **Login.php (first field)**: SQL injection was exploitable using payloads like:
-  ```sql
-  ok' or 1=1--
-  ```
+- **Login.php (first field):** SQL injection was exploitable using payloads like:
+  
+  *(Use `ok' or 1=1--` to bypass authentication.)*
 
-## Command Injection
+### Command Injection
 
-- **networking.php (first field)**: The application was vulnerable to command injection using:
-  ```sh
-  www.welcometorecall.com && cat vendors.txt
-  ```
-- **networking.php (second field)**: A more advanced form of command injection required modifying the payload to:
-  ```sh
-  www.welcometorecall.com | cat vendors.txt
-  ```
+- **networking.php (first field):** The application was vulnerable to command injection using:
+  
+  *(Modify the URL or input field to append `&& cat vendors.txt`.)*
 
-## Brute Force Attack
+- **networking.php (second field):** A more advanced form of command injection required modifying the payload to:
+  
+  *(Use `| cat vendors.txt` instead of `&&` or `;`.)*
 
-- **Login.php (second field)**: Using command injection vulnerabilities, the `/etc/passwd` file revealed a valid username and password combination.
+### Brute Force Attack
 
-## PHP Injection
+- **Login.php (second field):** Using command injection vulnerabilities, the `/etc/passwd` file revealed a valid username and password combination.
 
-- **souvenirs.php**: This hidden page was discovered through `robots.txt`, and a PHP injection vulnerability was exploited using:
-  ```sh
-  http://192.168.13.35/souvenirs.php?message=""; system('cat /etc/passwd')
-  ```
+### PHP Injection
 
-## Session Management Weakness
+- **souvenirs.php:** This hidden page was discovered through `robots.txt`, and a PHP injection vulnerability was exploited using:
+  
+  *(Modify the URL to `?message=""; system('cat /etc/passwd')`.)*
 
-- **admin_legal_data.php**: Session IDs were predictable, and testing different values with Burp Suite revealed a valid session at:
-  ```sh
-  ?admin=87
-  ```
+### Session Management Weakness
 
-## Directory Traversal
+- **admin_legal_data.php:** Session IDs were predictable, and testing different values with Burp Suite revealed a valid session at `?admin=87`.
 
-- **Disclaimer.php**: The page hinted at older disclaimers, and directory traversal was used to access previous versions by modifying the URL:
-  ```sh
-  http://192.168.13.35/disclaimer.php?page=old_disclaimers/disclaimer_1.txt
-  ```
+### Directory Traversal
+
+- **Disclaimer.php:** The page hinted at older disclaimers, and directory traversal was used to access previous versions by modifying the URL:
+  
+  *(Modify `?page=old_disclaimers/disclaimer_1.txt` to access previous versions.)*
+
 
 These findings illustrate significant security weaknesses that require immediate remediation to prevent exploitation.
     
