@@ -6,24 +6,25 @@ This project focuses on improving the security, performance, and manageability o
 
 ## Operating System  
 
-- **Linux**  
+- **Linux**
+- **Windows**
 
 ## Skills Gained and Excercised
 
-- **User and Access Management**
-   - Gained proficiency in managing user accounts and groups, securing access control, and handling terminated or on-leave employees effectively.
+- **Web Application Penetration Testing**
+   - Discovered and exploited vulnerabilities such as XSS (reflected and stored), SQL injection, command injection, and local file inclusion.
+   - Used tools like Burp Suite and cURL to analyze and manipulate web traffic.
+   - Gained access to sensitive information through improper input validation and weak session management.
  
-- **Service Auditing and Optimization**
-   - Learned to identify, stop, disable, and remove unnecessary or insecure services to reduce attack surfaces and optimize system performance.
+- **Linux Server Exploitation**
+   - Conducted network reconnaissance using Nmap and Nessus to identify open ports and vulnerabilities.
+   - Exploited vulnerabilities such as Shellshock, Apache Struts RCE, and privilege escalation flaws.
+   - Gained unauthorized access by leveraging weak credentials and SSH misconfigurations.
  
-- **System Updates and Package Management**
-   - Acquired expertise in updating system packages, installing essential security tools, and maintaining a secure and up-to-date system environment.
+- **Windows Server Exploitation**
+   - Identified open ports and running services through network scanning.
+   - Exploited SLMail, scheduled tasks, and cached credentials for privilege escalation.
+   - Used Metasploit modules to execute remote exploits and gain shell access.
+   - Extracted user credentials and cracked password hashes using John the Ripper and Mimikatz.
 
-- **File System Security**
-   - Developed skills in auditing and applying secure file permissions, securing sensitive files, and preventing unauthorized access.
 
-- **Log Management and Troubleshooting**
-   - Improved proficiency in configuring persistent logs, implementing log rotation policies, and optimizing disk usage for efficient system performance.
-
-- **SSH Configuration and Secure Remote Access**
-   - Enhanced ability to secure SSH configurations by enforcing strong authentication, disabling root access, and using secure protocols.
