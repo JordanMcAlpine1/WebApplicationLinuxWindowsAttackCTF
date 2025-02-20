@@ -30,9 +30,9 @@ This project focuses on improving the security, performance, and manageability o
 
 ---
 
-## Web Application Attack (Rekall)
+## Rekall Web Application Attack
 
-During the assessment of a web application, multiple vulnerabilities were identified across different locations, revealing various security weaknesses. Below are the details of these findings:
+During the assessment of a Rekall's web application, multiple vulnerabilities were identified across different locations, revealing various security weaknesses. Below are the details of these findings:
 
 ### Reflected Cross-Site Scripting (XSS)
 
@@ -96,10 +96,69 @@ During the assessment of a web application, multiple vulnerabilities were identi
 
 ---
 
+## Rekall Linux Server Attack
 
+During the security assessment of Rekall's Linux infrastructure, several vulnerabilities were identified. These findings expose risks that could be exploited by attackers to gain unauthorized access, escalate privileges, or retrieve sensitive information. Below are the details of these findings:
 
+### Open Source Exposed Data
 
+- **Domain WHOIS Information**  
+  - **Discovery:** Publicly accessible domain information revealed sensitive details.  
+  - **Investigation Tool:** Domain Dossier at `centralops.net`.
 
-These findings illustrate significant security weaknesses that require immediate remediation to prevent exploitation.
+- **Subdomain Enumeration**  
+  - **Discovery:** Certificate transparency logs exposed additional subdomains.
+  - **Investigation Tool:** `crt.sh` search for `totalrekall.xyz`.
+
+---
+
+### Network Reconnaissance
+
+- **Host Discovery**  
+  - **Scan Results:** A network scan revealed active hosts within the `192.168.13.0/24` subnet.  
+  - **Key Finding:** Five active hosts were identified excluding the scanning machine.
+
+- **Service Enumeration**  
+  - **Vulnerable Host Identified:** An aggressive scan indicated that `192.168.13.13` runs **Drupal**, making it a potential target.
+
+---
+
+### Vulnerability Exploitation
+
+#### Apache Struts Vulnerability (CVE-2017-5638)
+
+- **Affected Host:** `192.168.13.12`
+- **Discovery Method:** Nessus scan detected a critical vulnerability.
+- **Exploit:** Leveraging Metasploit's `struts2_content_type_ognl` exploit to gain access.
+- **Post-Exploitation:** Retrieved sensitive files containing a potential flag.
+
+#### Apache Tomcat RCE (CVE-2017-12617)
+
+- **Affected Host:** `192.168.13.10`
+- **Exploitation Method:** Metasploit's `tomcat_jsp_upload_bypass` module was used to gain a Meterpreter shell.
+- **Privilege Escalation:** Retrieved root-level sensitive information.
+
+#### Shellshock Exploit
+
+- **Affected Host:** `192.168.13.11`
+- **Exploitation Method:** Apache's CGI module was vulnerable to Shellshock.
+- **Exploitation Steps:**
+  - Leveraged `apache_mod_cgi_bash_env_exec` module.
+  - Gained shell access and extracted critical system files.
+
+---
+
+### Additional Security Weaknesses
+
+- **Drupal Exploit (CVE-2019-6340)**
+  - **Host:** `192.168.13.13`
+  - **Exploit:** Used Metasploit's `drupal_restws_unserialize` module.
+  - **Result:** Gained access to the server with the `www-data` user.
+
+- **Privilege Escalation via Sudo Misconfiguration (CVE-2019-14287)**
+  - **Host:** `192.168.13.14`
+  - **Misconfiguration:** WHOIS data suggested an `sshuser` account with weak credentials.
+  - **Exploit:** Used `sudo -u#-1` to escalate privileges and retrieve sensitive data.
+
     
 
