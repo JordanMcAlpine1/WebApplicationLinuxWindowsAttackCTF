@@ -160,5 +160,50 @@ During the security assessment of Rekall's Linux infrastructure, several vulnera
   - **Misconfiguration:** WHOIS data suggested an `sshuser` account with weak credentials.
   - **Exploit:** Used `sudo -u#-1` to escalate privileges and retrieve sensitive data.
 
-    
 
+---
+
+## Rekall Windows Server Attack
+
+During the security assessment of Rekall's Windows Server infrastructure, several vulnerabilities were identified. These findings present risks that could be exploited by attackers to gain unauthorized access, escalate privileges, or retrieve sensitive information. Below are the details of these findings:
+
+## Enumeration and Information Gathering
+
+### GitHub Repository Discovery
+- A public repository related to Rekall was identified on GitHub.
+- Searching within the repository led to the `xampp.users` page, revealing stored credentials.
+- The credentials were hashed using `$apr1$` format, indicating they could be cracked using John the Ripper.
+
+### Network Scanning
+- A subnet scan (`172.22.117.0/24`) revealed two machines:
+  - `Win10 @ 172.22.117.20`
+  - `Server2019 @ 172.22.117.10`
+- Further scans identified open ports, including HTTP, FTP, SMTP, and POP3 services.
+
+## Exploitation
+
+### Web Authentication Bypass
+- Visiting `http://172.22.117.20` prompted authentication.
+- Using the cracked credentials (`trivera : Tanya4life`), access was granted to retrieve sensitive files.
+
+### FTP Anonymous Access
+- FTP access was enabled for anonymous users.
+- Using FTP commands, files were retrieved, including a flag stored in `flag3.txt`.
+
+### SLMail Exploitation
+- SLMail service was running on port 110.
+- Using Metasploit, a known exploit was applied, leading to a Meterpreter session.
+- Once inside, directory listing revealed `flag4.txt`.
+
+### Scheduled Task Exploitation
+- Scheduled tasks were enumerated using system commands.
+- A flagged task contained critical information when queried.
+
+### Credential Dumping
+- Post-exploitation tools like `kiwi` were used to extract user credentials.
+- Cached credentials of an administrator were identified and cracked.
+- The retrieved credentials were leveraged to escalate access to the `Server2019` machine.
+
+### Privilege Escalation
+- `PsExec` was used to obtain SYSTEM privileges on `Server2019`.
+- A DCSync attack was performed to retrieve the NTLM password hash of the administrator.
